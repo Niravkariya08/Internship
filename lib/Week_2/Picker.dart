@@ -148,7 +148,6 @@ class _PickerDemoState extends State<PickerDemo> {
                           foregroundColor: Colors.black,
                         ),
                       ),
-                      bottomAppBarTheme: BottomAppBarTheme(color: Colors.blue),
                     ),
                     child: child!,
                   );
