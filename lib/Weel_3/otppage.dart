@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'package:internship/Week_2/appbardrawertask.dart';
+// import 'package:flutter/semantics.dart';
+import 'package:internship/DashBoard.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpPage extends StatefulWidget {
   final String PhoneNumber;
@@ -176,20 +177,22 @@ class _OtpPageState extends State<OtpPage> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (formkey.currentState!.validate()) {
                 } else {
                   if (codeVerify == true) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AppbarDrawerTask(),
-                      ),
-                    );
                     otpController.clear();
                     setState(() {
                       codeVerify = false;
                     });
+                    var sharedPref = await SharedPreferences.getInstance();
+                    sharedPref.setBool('isLogin', true);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardScreen(),
+                      ),
+                    );
                   }
                 }
               },

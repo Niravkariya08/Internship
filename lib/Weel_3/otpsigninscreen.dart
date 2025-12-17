@@ -1,16 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:internship/Week_2/appbardrawertask.dart';
 import 'package:internship/Weel_3/otppage.dart';
+import 'package:internship/main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'otppage.dart';
 
 class OtpSigninScreen extends StatefulWidget {
   const OtpSigninScreen({super.key});
 
   @override
-  State<OtpSigninScreen> createState() => _OtpSigninScreenState();
+  State<OtpSigninScreen> createState() => OtpSigninScreenState();
 }
 
-class _OtpSigninScreenState extends State<OtpSigninScreen> {
+class OtpSigninScreenState extends State<OtpSigninScreen> {
+  // static const String KEYLOGIN = '';
+  // var isLogedin;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
@@ -18,12 +25,22 @@ class _OtpSigninScreenState extends State<OtpSigninScreen> {
   final formkey = GlobalKey<FormState>();
   String? _selectedCountryCode;
   String phoneNumber = '';
+
+  var UserEmail;
+  var UserPhone;
+
   @override
   void initState() {
     super.initState();
+    // whereToGo();
     emailFocusNode.addListener(_onFocusChange);
     phoneFocusNode.addListener(_onFocusChange);
   }
+
+  // void whereToGo() async {
+  //   var sharedPref = await SharedPreferences.getInstance();
+  //   isLogedin = sharedPref.getBool(KEYLOGIN);
+  // }
 
   @override
   void dispose() {
@@ -158,13 +175,18 @@ class _OtpSigninScreenState extends State<OtpSigninScreen> {
                 ),
                 SizedBox(height: 40),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (formkey.currentState!.validate()) {
                       print(emailController.text);
                       print(phoneController.text);
                       phoneNumber = phoneController.text;
                       // emailController.clear();
                       // phoneController.clear();
+                      UserEmail = emailController.text.toString();
+                      UserPhone = phoneController.text.toString();
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString('email', UserEmail);
+                      prefs.setString('phone', UserPhone);
                       setState(() {});
                       Navigator.push(
                         context,
@@ -174,6 +196,16 @@ class _OtpSigninScreenState extends State<OtpSigninScreen> {
                         ),
                       );
                     }
+                    // else {
+                    //   var sheredPref = await SharedPreferences.getInstance();
+                    //   sheredPref.setBool(myapp2State.KEYLOGIN, true);
+                    //   Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => AppbarDrawerTask(),
+                    //     ),
+                    //   );
+                    // }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFF87C47),

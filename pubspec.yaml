@@ -34,17 +34,27 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  #GestureDetatector 
   fluttertoast:
   card_swiper:
+  #Time & Date 
   intl:
   image_picker:
   image_cropper: 
+  #Location 
   geolocator: ^14.0.2
   geocoding: 
   location:
+  #Phone code Get  
   intl_phone_field: ^3.2.0
+
+  #Otp
   pinput: ^6.0.1
+
+  #Splash Screen 
   flutter_native_splash: ^2.4.7
+
+  #Local Storage 
   shared_preferences: ^2.5.4
  
 
@@ -58,6 +68,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+
+  #App Logo
   flutter_launcher_icons: ^0.14.4
 
 # For information on the generic Dart part of this file, see the
