@@ -10,24 +10,22 @@ class CalculatorDemo extends StatefulWidget {
 
 class _CalculatorDemoState extends State<CalculatorDemo> {
   final List<Map<String, dynamic>> Buttons = [
-    //
-    //
-    {'color': Colors.white, 'Title': '1', 'value': '1'},
-    {'color': Colors.white, 'Title': '2', 'value': '2'},
-    {'color': Colors.white, 'Title': '3', 'value': '3'},
-    {'color': Colors.white, 'Title': '+', 'value': ''},
-    {'color': Colors.white, 'Title': '4', 'value': '4'},
-    {'color': Colors.white, 'Title': '5', 'value': '5'},
-    {'color': Colors.white, 'Title': '6', 'value': '6'},
-    {'color': Colors.white, 'Title': '-', 'value': ''},
-    {'color': Colors.white, 'Title': '7', 'value': '7'},
-    {'color': Colors.white, 'Title': '8', 'value': '8'},
-    {'color': Colors.white, 'Title': '9', 'value': '9'},
-    {'color': Colors.white, 'Title': '*', 'value': ''},
-    {'color': Colors.orange, 'Title': 'C', 'value': ''},
-    {'color': Colors.white, 'Title': '0', 'value': '0'},
-    {'color': Colors.white, 'Title': '/', 'value': ''},
-    {'color': Colors.orange, 'Title': '=', 'value': ''},
+    {'color': Colors.white, 'Title': '7'},
+    {'color': Colors.white, 'Title': '8'},
+    {'color': Colors.white, 'Title': '9'},
+    {'color': Colors.white, 'Title': '+'},
+    {'color': Colors.white, 'Title': '4'},
+    {'color': Colors.white, 'Title': '5'},
+    {'color': Colors.white, 'Title': '6'},
+    {'color': Colors.white, 'Title': '-'},
+    {'color': Colors.white, 'Title': '1'},
+    {'color': Colors.white, 'Title': '2'},
+    {'color': Colors.white, 'Title': '3'},
+    {'color': Colors.white, 'Title': '*'},
+    {'color': Colors.orange, 'Title': 'C'},
+    {'color': Colors.white, 'Title': '0'},
+    {'color': Colors.white, 'Title': '/'},
+    {'color': Colors.orange, 'Title': '='},
   ];
 
   String ScreenItem = '';
@@ -36,6 +34,7 @@ class _CalculatorDemoState extends State<CalculatorDemo> {
   String operator = '';
   double subtotal = 0;
   double ans = 0;
+  double result = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,9 @@ class _CalculatorDemoState extends State<CalculatorDemo> {
       appBar: AppBar(),
       body: Center(
         child: Container(
-          height: 430,
-          width: 300,
+          height: 500,
+          width: 320,
+
           decoration: BoxDecoration(
             border: Border.all(width: 2, color: Colors.black),
             borderRadius: BorderRadius.circular(16),
@@ -59,17 +59,21 @@ class _CalculatorDemoState extends State<CalculatorDemo> {
               Container(
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.all(8),
-                height: 50,
-                width: 250,
+                height: 60,
+                width: 270,
                 decoration: BoxDecoration(
+                  color: Colors.black,
                   border: Border.all(width: 2, color: Colors.black),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Text(ScreenItem, style: TextStyle(fontSize: 20)),
+                child: Text(
+                  ScreenItem,
+                  style: TextStyle(fontSize: 26, color: Colors.white),
+                ),
               ),
               Container(
-                height: 280,
-                width: 280,
+                height: 330,
+                width: 300,
                 child: GridView.builder(
                   padding: EdgeInsets.all(8),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -96,19 +100,22 @@ class _CalculatorDemoState extends State<CalculatorDemo> {
                             title == '/') {
                           num1 = double.parse(ScreenItem);
                           operator = title;
-                          // ScreenItem = '';
-                          ScreenItem = ScreenItem + title;
+                          ScreenItem += title;
                           setState(() {});
                           return;
                         }
+
                         if (title == '=') {
                           List<String> parts = ScreenItem.split(operator);
-                          // num2 = double.parse(ScreenItem);
-                          // equal();
-                          // return;
                           if (parts.length == 2) {
                             num2 = double.parse(parts[1]);
                             equal();
+                          } else {
+                            setState(() {
+                              num1 = result;
+                              num2 = double.parse(parts[1]);
+                              equal();
+                            });
                           }
                           return;
                         }
@@ -157,8 +164,6 @@ class _CalculatorDemoState extends State<CalculatorDemo> {
   }
 
   void equal() {
-    double result = 0;
-
     if (operator == '+') {
       result = num1 + num2;
     } else if (operator == '-') {
