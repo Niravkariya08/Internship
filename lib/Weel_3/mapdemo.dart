@@ -93,7 +93,7 @@ class _mapDemoState extends State<mapDemo> {
               builder: (context, controller) {
                 return GooglePlaceAutoCompleteTextField(
                   textEditingController: controller,
-                  googleAPIKey: "AIzaSyC9gLMK_K5YxmKbQfVW5a6qTixAnST1dE4",
+                  googleAPIKey: "",
                   inputDecoration: InputDecoration(),
                   debounceTime: 800,
                   countries: ["in"],
