@@ -18,8 +18,8 @@ import 'package:internship/Week_2/locationDemo.dart';
 import 'package:internship/Week_2/stackdemo.dart';
 import 'package:internship/Week_2/swiperdemo.dart';
 import 'package:internship/Weel_3/Calculator.dart';
+import 'package:internship/Weel_3/mapdemo.dart';
 import 'package:internship/Weel_3/otpsigninscreen.dart';
-import 'package:internship/Weel_3/pattern.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -235,13 +235,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   "Calculator",
                   CalculatorDemo(),
                 ),
-                // _buildButtonRow(
-                //   context,
-                //   "Patterns",
-                //   PatternDemo(),
-                //   "Calculator",
-                //   CalculatorDemo(),
-                // ),
+                _buildButtonRow(
+                  context,
+                  "Map Demo",
+                  mapDemo(),
+                  "Calculator",
+                  CalculatorDemo(),
+                ),
                 SizedBox(height: 10),
                 buildTextDivider('Extra'),
                 SizedBox(height: 10),

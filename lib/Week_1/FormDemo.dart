@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:internship/Week_1/FormDemocontroller.dart';
 
 class Formdemo extends StatefulWidget {
   const Formdemo({super.key});
@@ -8,12 +10,19 @@ class Formdemo extends StatefulWidget {
 }
 
 class _FormdemoState extends State<Formdemo> {
-  TextEditingController firstnameController = TextEditingController();
-  TextEditingController lastnameController = TextEditingController();
-  TextEditingController phonenoController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController conpasswordController = TextEditingController();
+  // TextEditingController firstnameController = TextEditingController();
+  // TextEditingController lastnameController = TextEditingController();
+  // TextEditingController phonenoController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // TextEditingController conpasswordController = TextEditingController();
+
+  final Formdemocontroller filecontroller = Get.put(Formdemocontroller());
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<Formdemocontroller>();
+  }
 
   final formkey = GlobalKey<FormState>();
 
@@ -69,7 +78,7 @@ class _FormdemoState extends State<Formdemo> {
                   SizedBox(height: 12),
                   TextFormField(
                     textInputAction: TextInputAction.next,
-                    controller: firstnameController,
+                    controller: filecontroller.firstnameController.value,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person),
                       border: OutlineInputBorder(),
@@ -81,12 +90,13 @@ class _FormdemoState extends State<Formdemo> {
                       } else if (!RegExp(r"^[A-Za-z\s.'-]+$").hasMatch(value)) {
                         return "Write Name Properly Only Alphabet";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
+                    controller: filecontroller.lastnameController.value,
                     textInputAction: TextInputAction.next,
-                    controller: lastnameController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person),
                       border: OutlineInputBorder(),
@@ -98,12 +108,13 @@ class _FormdemoState extends State<Formdemo> {
                       } else if (!RegExp(r"^[A-Za-z\s.'-]+$").hasMatch(value)) {
                         return "Write Name Properly Only Alphabet";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     textInputAction: TextInputAction.next,
-                    controller: phonenoController,
+                    controller: filecontroller.phonenoController.value,
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -120,6 +131,7 @@ class _FormdemoState extends State<Formdemo> {
                       ).hasMatch(value)) {
                         return "Write Number Properly";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 14),
@@ -155,7 +167,7 @@ class _FormdemoState extends State<Formdemo> {
                   SizedBox(height: 14),
                   TextFormField(
                     textInputAction: TextInputAction.next,
-                    controller: emailController,
+                    controller: filecontroller.emailController.value,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.email_rounded),
@@ -170,13 +182,14 @@ class _FormdemoState extends State<Formdemo> {
                       ).hasMatch(value)) {
                         return "Write Email Properly Ex abc@gmail.com";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 20),
                   TextFormField(
                     textInputAction: TextInputAction.next,
                     obscureText: !passwordVisible,
-                    controller: passwordController,
+                    controller: filecontroller.passwordController.value,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
@@ -205,7 +218,7 @@ class _FormdemoState extends State<Formdemo> {
                   TextFormField(
                     textInputAction: TextInputAction.done,
                     obscureText: !conpasswordVisible,
-                    controller: conpasswordController,
+                    controller: filecontroller.conpasswordController.value,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.password),
                       suffixIcon: IconButton(
@@ -227,6 +240,7 @@ class _FormdemoState extends State<Formdemo> {
                       if (value == null || value.isEmpty) {
                         return "Enter Confirm Password";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 16),
@@ -255,23 +269,55 @@ class _FormdemoState extends State<Formdemo> {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () {
-                            if (passwordController.text ==
-                                conpasswordController.text) {
+                            if (filecontroller.passwordController.value.text ==
+                                filecontroller
+                                    .conpasswordController
+                                    .value
+                                    .text) {
                               if (isChecked == true) {
                                 if (formkey.currentState!.validate()) {
-                                  print(firstnameController.text);
-                                  print(lastnameController.text);
-                                  print(phonenoController.text);
-                                  print(emailController.text);
-                                  print(passwordController.text);
-                                  print(conpasswordController.text);
+                                  print(
+                                    filecontroller
+                                        .firstnameController
+                                        .value
+                                        .text,
+                                  );
+                                  print(
+                                    filecontroller
+                                        .lastnameController
+                                        .value
+                                        .text,
+                                  );
+                                  print(
+                                    filecontroller.phonenoController.value.text,
+                                  );
+                                  print(
+                                    filecontroller.emailController.value.text,
+                                  );
+                                  print(
+                                    filecontroller
+                                        .passwordController
+                                        .value
+                                        .text,
+                                  );
+                                  print(
+                                    filecontroller
+                                        .conpasswordController
+                                        .value
+                                        .text,
+                                  );
                                   print(gender);
-                                  firstnameController.clear();
-                                  lastnameController.clear();
-                                  phonenoController.clear();
-                                  emailController.clear();
-                                  passwordController.clear();
-                                  conpasswordController.clear();
+                                  filecontroller.firstnameController.value
+                                      .clear();
+                                  filecontroller.lastnameController.value
+                                      .clear();
+                                  filecontroller.phonenoController.value
+                                      .clear();
+                                  filecontroller.emailController.value.clear();
+                                  filecontroller.passwordController.value
+                                      .clear();
+                                  filecontroller.conpasswordController.value
+                                      .clear();
                                   gender = "";
                                   isChecked = false;
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -312,12 +358,12 @@ class _FormdemoState extends State<Formdemo> {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: () {
-                            firstnameController.clear();
-                            lastnameController.clear();
-                            phonenoController.clear();
-                            emailController.clear();
-                            passwordController.clear();
-                            conpasswordController.clear();
+                            filecontroller.firstnameController.value.clear();
+                            filecontroller.lastnameController.value.clear();
+                            filecontroller.phonenoController.value.clear();
+                            filecontroller.emailController.value.clear();
+                            filecontroller.passwordController.value.clear();
+                            filecontroller.conpasswordController.value.clear();
                             gender = "";
                             isChecked = false;
                             if (formkey.currentState!.validate()) {

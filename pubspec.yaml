@@ -47,15 +47,18 @@ dependencies:
   location:
   #Phone code Get  
   intl_phone_field: ^3.2.0
-
   #Otp
   pinput: ^6.0.1
-
   #Splash Screen 
   flutter_native_splash: ^2.4.7
-
   #Local Storage 
   shared_preferences: ^2.5.4
+  #Controller Use in Other Page 
+  get: ^4.7.3
+  #Map
+  google_maps_flutter: ^2.14.0
+  #search Suggestion 
+  google_places_flutter: ^2.1.1
  
 
 dev_dependencies:

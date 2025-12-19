@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:internship/Week_1/signinFormcontroller.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -9,8 +11,14 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  final signinformcontroller signincontroller = Get.put(signinformcontroller());
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<signinformcontroller>();
+  }
 
   final formkey = GlobalKey<FormState>();
 
@@ -69,7 +77,7 @@ class _SignInFormState extends State<SignInForm> {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: emailController,
+                  controller: signincontroller.emailController.value,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
 
@@ -81,6 +89,7 @@ class _SignInFormState extends State<SignInForm> {
                     ).hasMatch(value)) {
                       return "Write Email Properly Ex abc@gmail.com";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hint: Text(
@@ -121,11 +130,12 @@ class _SignInFormState extends State<SignInForm> {
                 TextFormField(
                   textInputAction: TextInputAction.done,
                   obscureText: !passwordVisible,
-                  controller: passwordController,
+                  controller: signincontroller.passwordController.value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Enter Password";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hint: Text(
@@ -209,10 +219,10 @@ class _SignInFormState extends State<SignInForm> {
                 ElevatedButton(
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
-                      print(emailController.text);
-                      print(passwordController.text);
-                      emailController.clear();
-                      passwordController.clear();
+                      print(signincontroller.emailController.value.text);
+                      print(signincontroller.passwordController.value.text);
+                      signincontroller.emailController.value.clear();
+                      signincontroller.passwordController.value.clear();
                       setState(() {
                         isChecked = false;
                       });

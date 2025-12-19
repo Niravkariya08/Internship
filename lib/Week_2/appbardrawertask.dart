@@ -266,6 +266,7 @@ class _AppbarDrawerTaskState extends State<AppbarDrawerTask> {
                       if (value == null || value.isEmpty) {
                         return "Enter Name";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 20),
@@ -283,6 +284,7 @@ class _AppbarDrawerTaskState extends State<AppbarDrawerTask> {
                       if (value == null || value.isEmpty) {
                         return "Enter About";
                       }
+                      return null;
                     },
                   ),
                   SizedBox(height: 20),

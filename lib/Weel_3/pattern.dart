@@ -160,18 +160,13 @@ void main() {
   //   }
   //   stdout.writeln(" ");
   // }
-
   for (int i = 1; i <= 3; i++) {
-    for (int j = 1; j <= 5; j++) {
-      stdout.write(j);
-      for (int k = j + 5; k > j; k--) {
-        stdout.write(k);
-        for (int x = k + 5; x <= 15; x++) {
-          stdout.write(x);
-        }
-        stdout.writeln();
-      }
+    for (int j = 1; j <= n; j++) {
+      i % 2 == 0
+          ? stdout.write((i * n) - j + 1)
+          : stdout.write(n * (i - 1) + j);
     }
+    stdout.writeln(" ");
   }
   print("\n---------Break---------\n");
 }

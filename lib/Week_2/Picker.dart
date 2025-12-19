@@ -14,6 +14,7 @@ class PickerDemo extends StatefulWidget {
 class _PickerDemoState extends State<PickerDemo> {
   DateTime? SelectDate;
   TimeOfDay? SelectTime;
+  // ignore: unused_field
   CroppedFile? _croppedFile;
   String crop_Path = "";
   File? image;

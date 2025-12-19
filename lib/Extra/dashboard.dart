@@ -12,6 +12,7 @@ class dashBoardScreen extends StatefulWidget {
 
 class _dashBoardScreenState extends State<dashBoardScreen> {
   String locationMessage = "";
+  // ignore: unused_field
   String _locationMessage = "current address";
   String _locationMessageApbar = "current address";
   bool _isLoading = false;

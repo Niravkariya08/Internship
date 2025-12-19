@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:internship/Week_2/appbardrawertask.dart';
+import 'package:get/get.dart';
 import 'package:internship/Weel_3/otppage.dart';
-import 'package:internship/main.dart';
+import 'package:internship/Weel_3/otpsigninscreencontroller.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'otppage.dart';
 
 class OtpSigninScreen extends StatefulWidget {
   const OtpSigninScreen({super.key});
@@ -17,12 +15,17 @@ class OtpSigninScreen extends StatefulWidget {
 class OtpSigninScreenState extends State<OtpSigninScreen> {
   // static const String KEYLOGIN = '';
   // var isLogedin;
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController phoneController = TextEditingController();
+  // FocusNode emailFocusNode = FocusNode();
+  // FocusNode phoneFocusNode = FocusNode();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  FocusNode emailFocusNode = FocusNode();
-  FocusNode phoneFocusNode = FocusNode();
+  final otpSigninFormController signincontroller = Get.put(
+    otpSigninFormController(),
+  );
+
   final formkey = GlobalKey<FormState>();
+  // ignore: unused_field
   String? _selectedCountryCode;
   String phoneNumber = '';
 
@@ -33,19 +36,13 @@ class OtpSigninScreenState extends State<OtpSigninScreen> {
   void initState() {
     super.initState();
     // whereToGo();
-    emailFocusNode.addListener(_onFocusChange);
-    phoneFocusNode.addListener(_onFocusChange);
+    signincontroller.emailFocusNode.value.addListener(_onFocusChange);
+    signincontroller.phoneFocusNode.value.addListener(_onFocusChange);
   }
-
-  // void whereToGo() async {
-  //   var sharedPref = await SharedPreferences.getInstance();
-  //   isLogedin = sharedPref.getBool(KEYLOGIN);
-  // }
 
   @override
   void dispose() {
-    emailFocusNode.dispose();
-    phoneFocusNode.dispose();
+    Get.delete<otpSigninFormController>();
     super.dispose();
   }
 
@@ -88,14 +85,14 @@ class OtpSigninScreenState extends State<OtpSigninScreen> {
                 ),
                 SizedBox(height: 40),
                 TextFormField(
-                  focusNode: emailFocusNode,
-                  controller: emailController,
+                  focusNode: signincontroller.emailFocusNode.value,
+                  controller: signincontroller.emailController.value,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(
-                      color: emailFocusNode.hasFocus
+                      color: signincontroller.emailFocusNode.value.hasFocus
                           ? Color(0xffF87C47)
                           : Color(0xffDDDDDD),
                     ),
@@ -129,12 +126,13 @@ class OtpSigninScreenState extends State<OtpSigninScreen> {
                     ).hasMatch(value)) {
                       return "Write Email Properly Ex abc@gmail.com";
                     }
+                    return null;
                   },
                 ),
                 SizedBox(height: 40),
                 IntlPhoneField(
-                  focusNode: phoneFocusNode,
-                  controller: phoneController,
+                  focusNode: signincontroller.phoneFocusNode.value,
+                  controller: signincontroller.phoneController.value,
                   keyboardType: TextInputType.phone,
                   initialCountryCode: 'IN',
                   onChanged: (phone) {
@@ -145,7 +143,7 @@ class OtpSigninScreenState extends State<OtpSigninScreen> {
                     counterText: '',
                     labelText: 'Phone Number',
                     labelStyle: TextStyle(
-                      color: phoneFocusNode.hasFocus
+                      color: signincontroller.phoneFocusNode.value.hasFocus
                           ? Color(0xffF87C47)
                           : Color(0xffDDDDDD),
                     ),
@@ -177,13 +175,13 @@ class OtpSigninScreenState extends State<OtpSigninScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (formkey.currentState!.validate()) {
-                      print(emailController.text);
-                      print(phoneController.text);
-                      phoneNumber = phoneController.text;
+                      print(signincontroller.emailController.value.text);
+                      print(signincontroller.phoneController.value.text);
+                      phoneNumber = signincontroller.phoneController.value.text;
                       // emailController.clear();
                       // phoneController.clear();
-                      UserEmail = emailController.text.toString();
-                      UserPhone = phoneController.text.toString();
+                      UserEmail = signincontroller.emailController.value.text.toString();
+                      UserPhone = signincontroller.phoneController.value.text.toString();
                       var prefs = await SharedPreferences.getInstance();
                       prefs.setString('email', UserEmail);
                       prefs.setString('phone', UserPhone);
